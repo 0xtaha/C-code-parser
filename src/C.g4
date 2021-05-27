@@ -513,7 +513,7 @@ externalDeclaration
     |   declaration
     |   ';' // stray ;
     ;
-
+// important
 functionDefinition
     :   declarationSpecifiers? declarator declarationList? compoundStatement
     ;
