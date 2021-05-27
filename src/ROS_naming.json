@@ -1,4 +1,5 @@
 {
+
     "RE_FILE": {".*[A-Z]": [true, "under_scored"]},
     "RE_NAMESPACE": {".*[A-Z]": [true, "under_scored"],
     				 ".*\\_$": [true, "under_scored"]},
