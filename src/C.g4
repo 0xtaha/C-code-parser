@@ -172,6 +172,7 @@ constantExpression
     :   conditionalExpression
     ;
 
+// important
 declaration
     :   declarationSpecifiers initDeclaratorList? ';'
     |   staticAssertDeclaration
@@ -185,6 +186,7 @@ declarationSpecifiers2
     :   declarationSpecifier+
     ;
 
+// important
 declarationSpecifier
     :   storageClassSpecifier
     |   typeSpecifier
@@ -201,6 +203,7 @@ initDeclarator
     :   declarator ('=' initializer)?
     ;
 
+// important
 storageClassSpecifier
     :   'typedef'
     |   'extern'
@@ -209,6 +212,7 @@ storageClassSpecifier
     |   'auto'
     |   'register'
     ;
+
 
 typeSpecifier
     :   ('void'
@@ -234,6 +238,7 @@ typeSpecifier
     |   typeSpecifier pointer
     ;
 
+// important
 structOrUnionSpecifier
     :   structOrUnion Identifier? '{' structDeclarationList '}'
     |   structOrUnion Identifier
@@ -253,6 +258,7 @@ structDeclaration
     |   staticAssertDeclaration
     ;
 
+// important
 specifierQualifierList
     :   (typeSpecifier| typeQualifier) specifierQualifierList?
     ;
@@ -266,6 +272,7 @@ structDeclarator
     |   declarator? ':' constantExpression
     ;
 
+// important
 enumSpecifier
     :   'enum' Identifier? '{' enumeratorList ','? '}'
     |   'enum' Identifier
@@ -307,6 +314,7 @@ alignmentSpecifier
     :   '_Alignas' '(' (typeName | constantExpression) ')'
     ;
 
+// important
 declarator
     :   pointer? directDeclarator gccDeclaratorExtension*
     ;
@@ -364,6 +372,7 @@ parameterList
     :   parameterDeclaration (',' parameterDeclaration)*
     ;
 
+// important
 parameterDeclaration
     :   declarationSpecifiers declarator
     |   declarationSpecifiers2 abstractDeclarator?
