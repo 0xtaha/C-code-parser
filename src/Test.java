@@ -5,16 +5,18 @@ import java.io.IOException;
 
 public class Test {
     public static void main(String[] args) throws IOException {
-        String InputFile = "test.txt";
+        String InputFile = "test.c";
         FileInputStream is = new FileInputStream(InputFile);
         ANTLRInputStream input = new ANTLRInputStream(is);
         CLexer lexer = new CLexer(input);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CParser parser = new CParser( tokens);
-        ParseTree tree = parser.prog();
+        ParseTree tree = parser.compilationUnit();
+        ParseTreeWalker walker = new ParseTreeWalker();
+        walker.walk( new CWalker(), tree );
 
-        TypeSpec DefinitionType = new TypeSpec();
-        DefinitionType.visit(tree);
+        CStandard CheckNames = new CStandard();
+        CheckNames.visit(tree);
     }
 
 }
