@@ -1,7 +1,7 @@
 public class CStandard extends CBaseVisitor<String> {
     boolean InsideScope;
 
-    private class CListenerAndCvistor extends CBaseListener {
+    private class CListener extends CBaseListener {
 
         @Override public void enterCompoundStatement(CParser.CompoundStatementContext ctx) {
             InsideScope = true ;
