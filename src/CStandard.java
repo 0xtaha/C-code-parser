@@ -3,7 +3,6 @@ public class CStandard extends CBaseVisitor<String> {
 
     public class CListener extends CBaseListener {
 
-
         @Override public void enterCompoundStatement(CParser.CompoundStatementContext ctx) {
             InsideScope = true ;
         }
