@@ -75,20 +75,19 @@ public class CStandard extends CBaseVisitor<String> {
     }
 
     @Override
-    public String visitFunctionSpecifier(CParser.FunctionSpecifierContext ctx) {
-        String val = String.valueOf(ctx.Identifier());
-
-        String FuncRegex = "([A-Z][a-z0-9]*_)+f" ;
+    public String visitDirectDeclarator(CParser.DirectDeclaratorContext ctx) {
         boolean is = InsideScope ;
-        if(is){
+        String val = String.valueOf(ctx.directDeclarator().Identifier());
+
+        if( (ctx.directDeclarator().Identifier().getText().matches( "([A-Z][A-Za-z0-9]*_)+arg"))){
+
             System.out.println("inside Scope");
         }
         else{
             System.out.println("outside Scope");
         }
-
-        if ((ctx.Identifier().getText().matches(FuncRegex)) == false) {
-            System.out.println("Violation, function");
+        if ((ctx.directDeclarator().Identifier().getText().matches("([A-Z][a-z0-9]*_)+f")) == false) {
+            System.out.println("Warning, your variable name violates the correct name for function");
         }
         return val;
     }

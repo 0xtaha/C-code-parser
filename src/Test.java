@@ -12,8 +12,6 @@ public class Test {
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         CParser parser = new CParser( tokens);
         ParseTree tree = parser.compilationUnit();
-        ParseTreeWalker walker = new ParseTreeWalker();
-        walker.walk( new CWalker(), tree );
 
         CStandard CheckNames = new CStandard();
         CheckNames.visit(tree);
