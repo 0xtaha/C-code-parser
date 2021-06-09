@@ -14,7 +14,7 @@ public class CStandard extends CBaseVisitor<String> {
 
     public boolean InsideScope  ;
     int Line ;
-    int DataStructureType ; // 0 --> Struct , 1 --> Union , 2 --> Enum
+    int DataStructureType = -1 ; // 0 --> Struct , 1 --> Union , 2 --> Enum
 
 
     public class CListener extends CBaseListener {
@@ -76,11 +76,10 @@ public class CStandard extends CBaseVisitor<String> {
     @Override
     public String visitEnumSpecifier(CParser.EnumSpecifierContext ctx) {
         String Enum_Regex;
+        DataStructureType = 2 ;
 
         String val = String.valueOf(ctx.Identifier());
         Enum_Regex = declarations.get("enumerations").toString();
-
-        DataStructureType = 2 ;
 
         if ((ctx.Identifier().getText().matches(Enum_Regex)) == false) {
             Line = ctx.start.getLine();
@@ -130,6 +129,7 @@ public class CStandard extends CBaseVisitor<String> {
 
         if(DataStructureType == 0){
             String structRegex ;
+            DataStructureType = -1;
             if(is){
                 System.out.println("inside Scope");
                 structRegex =  L_struct_Regex;
@@ -144,18 +144,18 @@ public class CStandard extends CBaseVisitor<String> {
                 Line = ctx.start.getLine();
                 System.out.printf("Violation, STRUCT , Line : %d%n\n", Line);
             }
+
         }
 
 
         if(DataStructureType == 1){
             String UnionRegex ;
+            DataStructureType = -1;
             if(is){
-                System.out.println("inside Scope");
                 UnionRegex = L_union_Regex;
 
             }
             else{
-                System.out.println("outside Scope");
                 UnionRegex = G_union_Regex;
 
             }
@@ -166,9 +166,11 @@ public class CStandard extends CBaseVisitor<String> {
                 System.out.printf("Violation, Union , Line : %d%n\n", Line);
             }
 
+
         }
         if(DataStructureType == 2){
             String EnumRegex ;
+            DataStructureType = -1;
             if(is){
                 EnumRegex = L_enumerations_Regex;
 
@@ -183,6 +185,7 @@ public class CStandard extends CBaseVisitor<String> {
             }
 
         }
+
         return visitChildren(ctx);
     }
     /**
@@ -191,5 +194,11 @@ public class CStandard extends CBaseVisitor<String> {
      * <p>The default implementation returns the result of calling
      * {@link #visitChildren} on {@code ctx}.</p>
      */
+
+    @Override public String visitTypeSpecifier(CParser.TypeSpecifierContext ctx) {
+        DataStructureType = -1;
+        return visitChildren(ctx);
+    }
+
 }
 
